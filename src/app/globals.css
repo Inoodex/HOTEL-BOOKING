@@ -2,12 +2,16 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #1a1a1a;
+  --primary: #1a3c2a;
+  --primary-hover: #14472e;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -23,4 +27,39 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.mobile-menu-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.mobile-menu-scroll::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.mobile-menu-scroll::-webkit-scrollbar-thumb {
+  background: #245d55;
+  border-radius: 3px;
+  transition: background 0.3s ease;
+}
+
+.mobile-menu-scroll::-webkit-scrollbar-thumb:hover {
+  background: #1a3c2a;
+}
+
+.mobile-menu-scroll {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
