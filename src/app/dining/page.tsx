@@ -213,7 +213,7 @@ export default function DiningPage() {
                 Whether it&apos;s a romantic dinner for two, a family celebration, or a business luncheon, our team ensures every detail is perfect.
               </p>
               <a
-                href="/booking"
+                href="/dining/reserve"
                 className="mt-8 inline-block bg-[#245d55] px-8 py-4 text-[11px] font-bold tracking-[2px] text-white transition-colors hover:bg-[#1a3c2a]"
               >
                 BOOK A TABLE
