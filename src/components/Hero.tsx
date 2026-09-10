@@ -30,7 +30,7 @@ const slides = [
   },
 ];
 
-export default function Hero(): JSX.Element {
+export default function Hero() {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   useEffect(() => {
@@ -41,14 +41,14 @@ export default function Hero(): JSX.Element {
   }, []);
 
   return (
-    <section className="relative min-h-[calc(100vh-70px)] overflow-hidden bg-[#1a3c2a] md:min-h-[calc(100vh-78px)]">
+    <section className="relative flex min-w-0 min-h-[calc(100svh-108px)] flex-col justify-between overflow-hidden bg-[#1a3c2a] md:min-h-[calc(100svh-118px)]">
 
       {/* Background Images - Slider */}
       {slides.map((slide, index) => (
         <div
           key={index}
           className={`absolute inset-0 transition-opacity duration-1000 ${
-            index === currentSlide ? "opacity-100" : "opacity-0"
+            index === currentSlide ? "opacity-100" : "opacity-0 pointer-events-none"
           }`}
         >
           <Image
@@ -62,9 +62,9 @@ export default function Hero(): JSX.Element {
         </div>
       ))}
 
-      {/* Left Teal Shape */}
-      <div className="absolute inset-0">
-        <svg className="absolute inset-0 h-full w-full" viewBox="0 0 1920 1080" preserveAspectRatio="none">
+      {/* Background Teal Polygon Overlay for Desktop */}
+      <div className="pointer-events-none absolute inset-0 hidden md:block">
+        <svg className="h-full w-full" viewBox="0 0 1920 1080" preserveAspectRatio="none">
           <path
             d="M0 0 L1200 0 L900 1080 L0 1080 Z"
             fill="#1a3c2a"
@@ -73,50 +73,88 @@ export default function Hero(): JSX.Element {
         </svg>
       </div>
 
-      {/* Main Content */}
-      <div className="relative z-10 mx-auto flex min-h-[calc(100vh-70px)] max-w-[1250px] items-center px-4 py-20 sm:px-6 md:min-h-[calc(100vh-78px)] lg:px-8">
+      {/* Mobile/Tablet Gradient Overlay for high legibility */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#1a3c2a]/95 via-[#1a3c2a]/85 to-[#1a3c2a]/95 md:hidden" />
 
+      {/* Main Content Area */}
+      <div className="relative z-10 mx-auto flex w-full max-w-[1250px] flex-1 flex-col justify-center px-4 pt-20 pb-6 sm:px-6 sm:pt-28 sm:pb-10 md:pt-28 md:pb-16 lg:px-8">
         <div className="max-w-[650px]">
 
           {/* Main Heading */}
-          <h1 className="font-serif text-[42px] font-medium leading-[1.05] tracking-[-1px] text-white sm:text-[58px] md:text-[72px] lg:text-[88px]">
+          <h1 className="font-serif text-[34px] font-medium leading-[1.08] tracking-[-0.5px] text-white sm:text-[52px] md:text-[72px] lg:text-[86px]">
             {slides[currentSlide].title}
             <br />
-
             <span className="italic text-white">
               {slides[currentSlide].highlight}
             </span>
           </h1>
 
           {/* Description */}
-          <p className="mt-6 max-w-[520px] text-[14px] leading-7 text-white/80 sm:mt-8 sm:max-w-[560px] sm:text-[15px] sm:leading-8">
+          <p className="mt-3 max-w-[380px] text-[13px] leading-6 text-white/80 sm:mt-6 sm:max-w-[540px] sm:text-[15px] sm:leading-8">
             {slides[currentSlide].desc}
           </p>
 
-          {/* Contact Info */}
-          <div className="mt-8 flex items-center gap-4 sm:mt-10">
-            <div className="flex items-center justify-center h-14 w-14 bg-[#c9a96e] text-[#1a3c2a]">
-              <span className="font-serif text-[28px] font-bold">知</span>
+          {/* Contact Info & Mobile Slide Dots */}
+          <div className="mt-5 flex flex-wrap items-center justify-between gap-4 sm:mt-8">
+            {/* Phone Contact */}
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded bg-[#c9a96e] text-[#1a3c2a] shadow-md sm:h-14 sm:w-14">
+                <span className="font-serif text-[20px] font-bold sm:text-[28px]">知</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-[10px] font-bold tracking-[1.5px] text-[#c9a96e] sm:text-[11px]">
+                  Book Your Trip !
+                </span>
+                <Link
+                  href="tel:+01234345894"
+                  className="flex items-center gap-1.5 text-[14px] font-bold text-white transition-colors hover:text-[#c9a96e] sm:gap-2 sm:text-[18px]"
+                >
+                  <Phone size={15} className="text-[#c9a96e]" />
+                  <span>+ 01 234 345 894</span>
+                </Link>
+              </div>
             </div>
-            <div className="flex flex-col">
-              <span className="text-[12px] font-bold tracking-[1px] text-white">
-                Book Your Trip !
-              </span>
-              <Link href="tel:+01234345894" className="flex items-center gap-2 text-[18px] font-bold text-white hover:text-[#c9a96e] transition-colors">
-                <Phone size={16} className="text-[#c9a96e]" />
-                + 01 234 345 894
-              </Link>
+
+            {/* Slide Dots for Mobile / Tablet */}
+            <div className="flex items-center gap-2 lg:hidden">
+              {slides.map((_, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  onClick={() => setCurrentSlide(index)}
+                  aria-label={`Go to slide ${index + 1}`}
+                  className={`h-2 rounded-full transition-all duration-300 ${
+                    index === currentSlide
+                      ? "w-7 bg-[#c9a96e]"
+                      : "w-2 bg-white/40 hover:bg-white/70"
+                  }`}
+                />
+              ))}
             </div>
           </div>
 
         </div>
       </div>
 
-      {/* Booking Calendar */}
-      <BookingCalendar />
+      {/* Desktop Slide Dots (Centered Bottom) */}
+      <div className="absolute bottom-28 left-1/2 z-10 hidden -translate-x-1/2 items-center gap-3 lg:flex">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            type="button"
+            onClick={() => setCurrentSlide(index)}
+            aria-label={`Go to slide ${index + 1}`}
+            className={`h-2 rounded-full transition-all duration-300 ${
+              index === currentSlide
+                ? "w-8 bg-[#c9a96e]"
+                : "w-2 bg-white/40 hover:bg-white/70"
+            }`}
+          />
+        ))}
+      </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-8 z-10 hidden items-center gap-3 lg:flex">
+      {/* Scroll Indicator (Desktop Only) */}
+      <div className="absolute bottom-28 left-8 z-10 hidden items-center gap-3 xl:flex">
         <div className="flex h-9 w-9 items-center justify-center rounded-full border border-white/30">
           <ChevronDown size={15} className="text-white/70" />
         </div>
@@ -125,27 +163,17 @@ export default function Hero(): JSX.Element {
         </span>
       </div>
 
-      {/* Slide Number */}
-      <div className="absolute bottom-8 right-8 z-10 hidden text-right lg:block">
-        <span className="font-serif text-[13px] text-white/50">
-          0{currentSlide + 1}
+      {/* Slide Number (Desktop Only) */}
+      <div className="absolute bottom-28 right-8 z-10 hidden text-right xl:block">
+        <span className="font-serif text-[14px] text-white/60">
+          0{currentSlide + 1} / 0{slides.length}
         </span>
-        <div className="mt-2 ml-auto h-px w-12 bg-[#c9a96e]" />
+        <div className="mt-1.5 ml-auto h-px w-12 bg-[#c9a96e]" />
       </div>
 
-      {/* Slide Dots */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex items-center gap-3">
-        {slides.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentSlide(index)}
-            className={`h-2 rounded-full transition-all duration-500 ${
-              index === currentSlide
-                ? "w-8 bg-[#c9a96e]"
-                : "w-2 bg-white/40 hover:bg-white/60"
-            }`}
-          />
-        ))}
+      {/* Booking Calendar Form at Bottom */}
+      <div className="relative z-20 w-full">
+        <BookingCalendar />
       </div>
 
     </section>

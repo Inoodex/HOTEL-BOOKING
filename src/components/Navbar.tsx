@@ -4,40 +4,40 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import { Menu, X, ArrowRight, ChevronDown } from "lucide-react";
 import Topbar from "./Topbar";
-import { useLenis } from "./SmoothScrolling";
+import { useLang } from "@/components/providers/LangProvider";
 
 const navItems = [
-  { name: "Home", href: "/" },
   { name: "About Us", href: "/about" },
-  { name: "Shop", href: "/shop" },
+  { name: "Dining", href: "/dining" },
   { name: "News", href: "/news" },
   { name: "Contact", href: "/contact" },
 ];
 
 const roomTypes = [
-  { name: "Standard Room", href: "/rooms/standard" },
-  { name: "Deluxe Room", href: "/rooms/deluxe" },
-  { name: "Suite", href: "/rooms/suite" },
-  { name: "Executive Room", href: "/rooms/executive" },
-  { name: "Presidential Suite", href: "/rooms/presidential" },
+  { name: "Double Room", href: "/rooms/double" },
+  { name: "Family Room", href: "/rooms/family" },
+  { name: "Luxury Room", href: "/rooms/luxury" },
+  { name: "Apartment", href: "/rooms/apartment" },
+  { name: "Room with View", href: "/rooms/view" },
+  { name: "Small Room", href: "/rooms/small" },
 ];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isRoomsOpen, setIsRoomsOpen] = useState(false);
   const [isMobileRoomsOpen, setIsMobileRoomsOpen] = useState(false);
-  const lenis = useLenis();
+  const { t } = useLang();
 
   useEffect(() => {
     if (isOpen) {
-      lenis?.stop();
+      document.body.style.overflow = "hidden";
     } else {
-      lenis?.start();
+      document.body.style.overflow = "";
     }
     return () => {
-      lenis?.start();
+      document.body.style.overflow = "";
     };
-  }, [isOpen, lenis]);
+  }, [isOpen]);
 
   const handleMobileMenuWheel = (e: React.WheelEvent) => {
     const target = e.currentTarget;
@@ -86,7 +86,7 @@ export default function Navbar() {
             <div className="flex items-center gap-[30px]">
 
               <Link href="/" className="group relative py-3 text-[14px] font-medium tracking-[0.3px] text-[#245d55] transition-colors duration-300">
-                Home
+                {t("home")}
                 <span className="absolute -bottom-[2px] left-0 h-[2px] w-full bg-[#245d55]" />
               </Link>
 
@@ -100,7 +100,7 @@ export default function Navbar() {
                   href="/rooms"
                   className="group flex items-center gap-1 py-3 text-[14px] font-medium tracking-[0.3px] text-[#292929] transition-colors duration-300 hover:text-[#245d55]"
                 >
-                  Rooms
+                  {t("rooms")}
                   <ChevronDown size={14} className={`transition-transform duration-300 ${isRoomsOpen ? "rotate-180" : ""}`} />
                 </Link>
 
@@ -129,7 +129,12 @@ export default function Navbar() {
 
             <div className="mx-6 h-[35px] w-px bg-[#c9a96e]/50 xl:mx-8" />
 
-            
+            <Link
+              href="/booking"
+              className="hidden border border-[#245d55] bg-[#245d55] px-6 py-2.5 text-[10px] font-bold tracking-[2px] text-white transition-colors hover:bg-[#1a3c2a] xl:block"
+            >
+              {t("bookNow")}
+            </Link>
           </div>
 
           {/* MOBILE BUTTON */}
@@ -153,7 +158,7 @@ export default function Navbar() {
           <div className="mx-auto max-w-[1250px] px-4 pb-6 pt-3 sm:px-6">
           
             <Link href="/" onClick={() => setIsOpen(false)} className="block border-b border-gray-100 py-4 text-sm font-semibold tracking-wide text-[#245d55]">
-              Home
+              {t("home")}
             </Link>
 
             {/* Mobile Rooms Dropdown */}
@@ -162,7 +167,7 @@ export default function Navbar() {
                 onClick={() => setIsMobileRoomsOpen(!isMobileRoomsOpen)}
                 className="flex w-full items-center justify-between py-4 text-sm tracking-wide text-gray-700"
               >
-                <span>Rooms</span>
+                <span>{t("rooms")}</span>
                 <ChevronDown size={16} className={`transition-transform duration-300 ${isMobileRoomsOpen ? "rotate-180" : ""}`} />
               </button>
               <div className={`overflow-hidden transition-all duration-300 ${isMobileRoomsOpen ? "max-h-[300px] pb-2" : "max-h-0"}`}>
@@ -175,14 +180,14 @@ export default function Navbar() {
             </div>
 
             {navItems.map((item) => (
-              <Link key={item.name} href={item.href} onClick={() => setIsOpen(false)} className="block border-b border-gray-100 py-4 text-sm tracking-wide text-gray-700 hover:text-[#245d55]">
-                {item.name}
+              <Link key={item.href} href={item.href} onClick={() => setIsOpen(false)} className="block border-b border-gray-100 py-4 text-sm tracking-wide text-gray-700 hover:text-[#245d55]">
+                {t(item.name === "About Us" ? "aboutUs" : item.name.toLowerCase())}
               </Link>
             ))}
             
 
             <Link href="/booking" onClick={() => setIsOpen(false)} className="mt-5 flex items-center justify-center gap-3 bg-[#245d55] py-3 text-xs font-bold tracking-[1.5px] text-white">
-              BOOK NOW
+              {t("bookNow")}
               <ArrowRight size={16} />
             </Link>
 

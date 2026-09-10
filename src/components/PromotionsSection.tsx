@@ -28,7 +28,7 @@ export default function PromotionsSection() {
   const promoRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    const elements = promoRefs.current.filter(Boolean);
+    const elements = promoRefs.current.filter((el): el is HTMLDivElement => el !== null);
     if (elements.length === 0) return;
 
     const observer = new IntersectionObserver(
@@ -95,7 +95,7 @@ export default function PromotionsSection() {
                   key={index}
                   ref={(el) => { promoRefs.current[index] = el; }}
                   data-delay={index}
-                  className="group flex items-center gap-5"
+                  className="group flex items-center gap-3 sm:gap-5"
                   style={{
                     opacity: 0,
                     transform: "translateX(40px)",

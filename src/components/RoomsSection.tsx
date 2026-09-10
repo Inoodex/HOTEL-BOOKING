@@ -3,57 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Users, Maximize } from "lucide-react";
-
-const rooms = [
-  {
-    name: "Double Room",
-    guests: 2,
-    area: "23 FT",
-    price: 25,
-    image: "/room/double room.jpg",
-    href: "/rooms/double",
-  },
-  {
-    name: "Family Room",
-    guests: 3,
-    area: "30 FT",
-    price: 30,
-    image: "/room/family room .jpg",
-    href: "/rooms/family",
-  },
-  {
-    name: "Luxury Room",
-    guests: 2,
-    area: "50 FT",
-    price: 67,
-    image: "/room/luxury room.jpg",
-    href: "/rooms/luxury",
-  },
-  {
-    name: "Apartment",
-    guests: 5,
-    area: "70 FT",
-    price: 56,
-    image: "/room/apartment.jpg",
-    href: "/rooms/apartment",
-  },
-  {
-    name: "Room with View",
-    guests: 4,
-    area: "40 FT",
-    price: 76,
-    image: "/room/room with view .jpg",
-    href: "/rooms/view",
-  },
-  {
-    name: "Small Room",
-    guests: 1,
-    area: "15 FT",
-    price: 56,
-    image: "/room/small room .jpg",
-    href: "/rooms/small",
-  },
-];
+import { rooms } from "@/data/rooms";
 
 export default function RoomsSection() {
   return (
@@ -76,10 +26,10 @@ export default function RoomsSection() {
 
         {/* Room Grid */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {rooms.map((room, index) => (
+          {rooms.map((room) => (
             <Link
-              key={index}
-              href={room.href}
+              key={room.slug}
+              href={`/rooms/${room.slug}`}
               className="group relative block overflow-hidden"
             >
               {/* Image */}
@@ -125,6 +75,16 @@ export default function RoomsSection() {
               </div>
             </Link>
           ))}
+        </div>
+
+        {/* View All Rooms */}
+        <div className="mt-12 text-center">
+          <Link
+            href="/rooms"
+            className="inline-block border border-[#245d55] bg-[#245d55] px-8 py-3 text-[10px] font-bold tracking-[2px] text-white transition-colors hover:bg-[#1a3c2a]"
+          >
+            VIEW ALL ROOMS
+          </Link>
         </div>
 
       </div>

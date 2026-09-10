@@ -17,7 +17,7 @@ export default function AboutSection() {
                 alt="Hotel Resort"
                 width={500}
                 height={600}
-                className="w-full h-[400px] sm:h-[500px] object-cover"
+                className="w-full h-[280px] sm:h-[400px] lg:h-[500px] object-cover"
               />
             </div>
 

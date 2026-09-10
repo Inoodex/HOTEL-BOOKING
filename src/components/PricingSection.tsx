@@ -72,7 +72,7 @@ export default function PricingSection() {
           {plans.map((plan, index) => (
             <div
               key={index}
-              className={`relative flex flex-col items-center px-8 pt-14 pb-12 text-center ${
+              className={`relative flex flex-col items-center overflow-hidden px-5 pt-10 pb-10 text-center sm:px-8 sm:pt-14 sm:pb-12 ${
                 plan.featured
                   ? "bg-[#245d55] text-white lg:-mt-6 lg:pb-16 lg:pt-20"
                   : "bg-white text-[#1a1a1a]"
@@ -80,7 +80,7 @@ export default function PricingSection() {
             >
               {/* Featured Badge */}
               {plan.featured && (
-                <div className="absolute -right-6 top-8 lg:-right-5 lg:top-6">
+                <div className="absolute right-2 top-8 sm:-right-6 sm:top-8 lg:-right-5 lg:top-6">
                   <div className="relative h-[72px] w-[72px]">
                     <div className="flex h-full w-full items-center justify-center rounded-full border-2 border-white/30">
                       <svg
@@ -123,7 +123,7 @@ export default function PricingSection() {
                   $
                 </span>
                 <span
-                  className={`font-serif text-[52px] font-medium leading-none ${
+                  className={`font-serif text-[40px] sm:text-[52px] font-medium leading-none ${
                     plan.featured ? "text-white" : "text-[#1a1a1a]"
                   }`}
                 >

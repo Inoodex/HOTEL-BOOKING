@@ -60,7 +60,7 @@ export default function BlogSection() {
 
           {/* Card 2 - Quote Card */}
           <div className="flex flex-col">
-            <div className="flex flex-1 items-center justify-center bg-[#245d55] p-10 text-center">
+            <div className="flex flex-1 items-center justify-center bg-[#245d55] p-7 text-center sm:p-10">
               <div>
                 <h3 className="font-serif text-[24px] font-medium leading-[1.3] text-white sm:text-[26px]">
                   Follow our Resort Luxury Hotels
